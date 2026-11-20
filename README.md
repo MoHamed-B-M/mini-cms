@@ -6,12 +6,13 @@ Auteur : Hamma, groupe MDW32.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, `lab-01b`, puis un tag par session).
 
-## État actuel (tag lab-03)
+## État actuel (tag lab-06b)
 
-- Articles enregistrés dans une base SQLite et lus avec le modèle Eloquent `Post`.
-- Table `posts` créée par une migration : après un clone, `php artisan migrate` la recrée (vide).
-- Liste paginée, détail par liaison modèle-route, formulaire de création avec validation côté serveur.
-- Premiers tests Pest : `php artisan test`.
+- Middleware `admin` (`App\Http\Middleware\EnsureUserIsAdmin`) sur tout `/admin` : un auteur reçoit 403 « Réservé aux administrateurs. ».
+- Gate `manage-tags`, comme `manage-categories` : contrôleur, Form Requests et menu.
+- Brouillons protégés : `PostPolicy::view` et le scope `visibleTo` ; un brouillon n'est visible que par son auteur et les administrateurs.
+- Tests d'autorisation : `AdminAccessTest` (7 tests) et `PostVisibilityTest` (5 tests), en plus des fichiers de la session 11.
+- Comparaison écrite avec le starter kit Livewire (section ci-dessous).
 
 ## Prérequis
 
@@ -91,3 +92,32 @@ Ouvrir ensuite http://localhost:8000 (adresse de l'application, différente de l
 ![Liste paginée des articles](screenshots/s05-articles.png)
 
 ![Formulaire avec erreurs de validation](screenshots/s05-formulaire.png)
+
+### Session 12
+
+![Page 403 « Réservé aux administrateurs. » pour un compte auteur sur /admin/tags](screenshots/s12-admin-interdit.png)
+
+![Barre de navigation d'un compte auteur, sans les liens Catégories et Tags](screenshots/s12-menu-auteur.png)
+## Comparaison avec le starter kit Livewire
+
+| Critère | Mini-CMS (authentification manuelle) | Starter kit Livewire |
+|---|---|---|
+| Routes d'authentification | 
+outes/web.php (/inscription, /connexion, /deconnexion) | enregistrées par Fortify depuis son paquet ; absentes de 
+outes/web.php |
+| Inscription | Auth\RegisterController (session 11) | pp/Actions/Fortify/CreateNewUser.php (Validator::make puis User::create) et 
+esources/views/pages/auth/register.blade.php |
+| Connexion | Auth\LoginController::store (Auth::attempt, 
+egenerate) | contrôleur de Fortify et 
+esources/views/pages/auth/login.blade.php |
+| Déconnexion | Auth\LoginController::destroy (logout, invalidate, 
+egenerateToken) | route logout de Fortify ; les mêmes trois opérations dans pp/Livewire/Actions/Logout.php |
+| Limitation des tentatives | aucune | 5 tentatives par minute par e-mail et adresse IP (pp/Providers/FortifyServiceProvider.php) |
+| Mot de passe oublié | absent | Features::resetPasswords() dans config/fortify.php |
+| Vérification de l'e-mail | absente | Features::emailVerification(), MustVerifyEmail sur User, middleware erified sur /dashboard |
+| Double authentification | absentes | Features::twoFactorAuthentication() et Features::passkeys() |
+| Rôles et autorisations | colonne 
+ole, Gates, PostPolicy, middleware dmin | aucun : à écrire soi-même |
+| Tests | AuthTest, AuthorizationTest, AdminAccessTest, PostVisibilityTest | 10 fichiers dans 	ests/Feature (Auth, Settings, Dashboard) ; écrits avec PHPUnit dans le dépôt |
+
+Ce que je garderais du kit dans un vrai projet : la limitation des tentatives, la vérification d'e-mail et la double authentification, déjà câblées, quitte à garder la gestion des rôles à écrire soi-même.
