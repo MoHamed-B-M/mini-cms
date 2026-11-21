@@ -105,3 +105,29 @@ it('revokes the current token on logout', function () {
 
     $this->assertDatabaseCount('personal_access_tokens', 0);
 });
+
+it('registers a user and returns a token', function () {
+    $this->postJson('/api/register', [
+        'name' => 'Nouveau',
+        'email' => 'nouveau@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ])
+        ->assertCreated()
+        ->assertJsonStructure(['token', 'token_type']);
+
+    $this->assertDatabaseHas('users', ['email' => 'nouveau@example.com']);
+});
+
+it('refuses a duplicate email on register', function () {
+    User::factory()->create(['email' => 'dup@example.com']);
+
+    $this->postJson('/api/register', [
+        'name' => 'Dup',
+        'email' => 'dup@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ])
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['email']);
+});
