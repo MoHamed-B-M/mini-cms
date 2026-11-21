@@ -3,164 +3,337 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini-CMS — Documentation du projet</title>
+<title>Mini-CMS — Documentation complète du projet</title>
 <style>
-  :root {
-    --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8;
-    --accent: #ff3d2e; --accent2: #3b82f6; --border: #334155;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-  header { background: linear-gradient(135deg, #1f2430, #0f172a); padding: 3rem 1.5rem; text-align: center; border-bottom: 1px solid var(--border); }
-  header h1 { font-size: 2.2rem; color: var(--accent); }
-  header p { color: var(--muted); margin-top: .5rem; }
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
-  section { margin-bottom: 2.5rem; }
-  h2 { color: var(--accent2); margin-bottom: .8rem; font-size: 1.4rem; border-left: 4px solid var(--accent); padding-left: .7rem; }
-  h3 { color: var(--text); margin: 1rem 0 .4rem; font-size: 1.1rem; }
-  p { color: var(--muted); margin-bottom: .6rem; }
-  ul { margin-left: 1.2rem; color: var(--muted); }
-  li { margin-bottom: .3rem; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: .6rem; padding: 1.2rem; margin-bottom: 1rem; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-  .badge { display: inline-block; background: var(--accent); color: #fff; padding: .15rem .5rem; border-radius: .3rem; font-size: .75rem; margin-right: .3rem; }
-  .badge.blue { background: var(--accent2); }
-  table { width: 100%; border-collapse: collapse; margin-top: .5rem; }
-  th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left; font-size: .9rem; }
-  th { background: #0f172a; color: var(--accent2); }
-  td { color: var(--muted); }
-  code { background: #0f172a; padding: .1rem .35rem; border-radius: .25rem; font-size: .85rem; color: #fbbf24; }
-  pre { background: #0f172a; border: 1px solid var(--border); border-radius: .5rem; padding: 1rem; overflow-x: auto; color: #e2e8f0; font-size: .85rem; margin-top: .5rem; }
-  footer { text-align: center; color: var(--muted); padding: 2rem 1rem; border-top: 1px solid var(--border); font-size: .85rem; }
-  a { color: var(--accent2); }
+  :root { --bg:#0f172a; --card:#1e293b; --text:#e2e8f0; --muted:#94a3b8; --accent:#ff3d2e; --accent2:#3b82f6; --border:#334155; --code:#fbbf24; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  header { background:linear-gradient(135deg,#1f2430,#0f172a); padding:3rem 1.5rem; text-align:center; border-bottom:1px solid var(--border); }
+  header h1 { font-size:2.4rem; color:var(--accent); }
+  header p { color:var(--muted); margin-top:.5rem; }
+  .wrap { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  section { margin-bottom:3rem; }
+  h2 { color:var(--accent2); margin-bottom:.8rem; font-size:1.5rem; border-left:4px solid var(--accent); padding-left:.7rem; }
+  h3 { color:var(--text); margin:1.2rem 0 .4rem; font-size:1.15rem; }
+  h4 { color:var(--accent); margin:.8rem 0 .3rem; font-size:1rem; }
+  p { color:var(--muted); margin-bottom:.6rem; }
+  ul, ol { margin-left:1.4rem; color:var(--muted); }
+  li { margin-bottom:.3rem; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:.6rem; padding:1.2rem; margin-bottom:1rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
+  .badge { display:inline-block; background:var(--accent); color:#fff; padding:.15rem .5rem; border-radius:.3rem; font-size:.75rem; margin-right:.3rem; }
+  .badge.blue { background:var(--accent2); }
+  .badge.green { background:#10b981; }
+  table { width:100%; border-collapse:collapse; margin-top:.5rem; font-size:.88rem; }
+  th,td { border:1px solid var(--border); padding:.5rem .7rem; text-align:left; }
+  th { background:#0f172a; color:var(--accent2); }
+  td { color:var(--muted); }
+  code { background:#0f172a; padding:.1rem .35rem; border-radius:.25rem; font-size:.85rem; color:var(--code); }
+  pre { background:#0f172a; border:1px solid var(--border); border-radius:.5rem; padding:1rem; overflow-x:auto; color:#e2e8f0; font-size:.85rem; margin-top:.5rem; }
+  footer { text-align:center; color:var(--muted); padding:2rem 1rem; border-top:1px solid var(--border); font-size:.85rem; }
+  a { color:var(--accent2); }
+  .toc { background:var(--card); border:1px solid var(--border); border-radius:.6rem; padding:1rem 1.2rem; }
+  .toc a { display:block; color:var(--muted); text-decoration:none; padding:.2rem 0; }
+  .toc a:hover { color:var(--accent); }
 </style>
 </head>
 <body>
 <header>
   <h1>Mini-CMS</h1>
-  <p>Application Laravel de gestion d'articles — documentation du projet</p>
-  <p><span class="badge">Laravel 13</span><span class="badge blue">PHP 8.3+</span><span class="badge">SQLite</span><span class="badge blue">Pest</span><span class="badge">Sanctum</span></p>
+  <p>Documentation complète — application Laravel de gestion d'articles</p>
+  <p><span class="badge">Laravel 13</span><span class="badge blue">PHP 8.3+</span><span class="badge green">SQLite</span><span class="badge">Pest</span><span class="badge blue">Sanctum</span><span class="badge green">MDW33</span></p>
 </header>
 
 <div class="wrap">
 
-<section>
+<nav class="toc">
+  <strong>Sommaire</strong>
+  <a href="#presentation">1. Présentation</a>
+  <a href="#features">2. Fonctionnalités</a>
+  <a href="#stack">3. Stack technique</a>
+  <a href="#structure">4. Structure du projet</a>
+  <a href="#models">5. Modèles &amp; relations</a>
+  <a href="#crud">6. CRUD détaillé</a>
+  <a href="#auth">7. Authentification &amp; autorisations</a>
+  <a href="#api">8. API REST</a>
+  <a href="#validation">9. Validation &amp; Form Requests</a>
+  <a href="#middleware">10. Middleware</a>
+  <a href="#errors">11. Pages d'erreur</a>
+  <a href="#tests">12. Tests</a>
+  <a href="#run">13. Lancer le projet</a>
+  <a href="#routes">14. Routes</a>
+  <a href="#git">15. Historique Git</a>
+</nav>
+
+<section id="presentation">
   <h2>1. Présentation</h2>
-  <p>Mini-CMS est une application web de gestion d'articles (posts) avec catégories, tags, authentification et une API REST.
-  Elle a été construite au fil de 15 sessions de cours (Atelier Framework Côté Serveur — ISET Sidi Bouzid) et couvre le cycle complet
-  d'une application Laravel : MVC, base de données, relations Eloquent, validation, autorisations, API et tests.</p>
+  <p>Mini-CMS est une application web de gestion d'articles (posts) avec catégories, tags, authentification utilisateur et une API REST.
+  Elle est le projet fil rouge de l'Atelier Framework Côté Serveur (ISET Sidi Bouzid, 3e année MDW, groupe MDW33) et couvre le cycle complet
+  d'une application Laravel : MVC, base de données, relations Eloquent, validation, autorisations, API et tests automatisés.</p>
+  <p>Le projet a été construit au fil de 15 sessions de cours, chaque session donnant lieu à un commit dédié sur la branche <code>mini-cms</code>.</p>
 </section>
 
-<section>
+<section id="features">
   <h2>2. Fonctionnalités</h2>
   <div class="grid">
     <div class="card"><h3>Articles (Posts)</h3><ul>
       <li>CRUD complet (création, lecture, modification, suppression)</li>
-      <li>Publication / dépublication</li>
+      <li>Publication / dépublication (toggle)</li>
       <li>Archives par année</li>
-      <li>Filtrage par catégorie et tag</li>
-      <li>Articles "mes articles" (auteur)</li>
+      <li>Filtrage par catégorie et par tag</li>
+      <li>Liste "mes articles" (auteur connecté)</li>
+      <li>Pagination</li>
     </ul></div>
     <div class="card"><h3>Taxonomie</h3><ul>
       <li>Catégories (admin CRUD)</li>
       <li>Tags (admin CRUD)</li>
-      <li>Relation N:N posts-tags</li>
+      <li>Relation N:N posts ↔ tags</li>
       <li>Chargement anticipé (eager loading)</li>
+      <li>Compteur d'articles par catégorie</li>
     </ul></div>
     <div class="card"><h3>Authentification</h3><ul>
       <li>Inscription / connexion manuelles</li>
-      <li>Rôles (author / admin)</li>
+      <li>Rôles : author, admin</li>
       <li>Gates &amp; Policies (PostPolicy)</li>
-      <li>Middleware <code>admin</code>, <code>writable</code></li>
+      <li>Middleware <code>admin</code>, <code>writable</code>, <code>auth</code>, <code>guest</code></li>
+      <li>Jetons Sanctum pour l'API</li>
     </ul></div>
     <div class="card"><h3>API REST</h3><ul>
-      <li>Lecture publique (index/show)</li>
+      <li>Lecture publique (index, show)</li>
       <li>CRUD protégé par Sanctum</li>
       <li>API Resources (PostResource, CategoryResource)</li>
       <li>Validation (Form Requests) + pagination</li>
+      <li>Codes HTTP : 200, 201, 204, 403, 404, 422</li>
     </ul></div>
   </div>
 </section>
 
-<section>
+<section id="stack">
   <h2>3. Stack technique</h2>
   <table>
     <tr><th>Composant</th><th>Détail</th></tr>
     <tr><td>Framework</td><td>Laravel 13</td></tr>
     <tr><td>Langage</td><td>PHP 8.3+</td></tr>
-    <tr><td>Base de données</td><td>SQLite (fichier <code>database/database.sqlite</code>)</td></tr>
-    <tr><td>Frontend</td><td>Blade + Tailwind CSS (CDN)</td></tr>
+    <tr><td>Base de données</td><td>SQLite (<code>database/database.sqlite</code>)</td></tr>
+    <tr><td>Frontend</td><td>Blade + Tailwind CSS (CDN) + Vite</td></tr>
     <tr><td>Auth API</td><td>Laravel Sanctum (jetons)</td></tr>
-    <tr><td>Tests</td><td>Pest (Feature + Unit)</td></tr>
-    <tr><td>Locale</td><td>fr (validation en français)</td></tr>
+    <tr><td>Tests</td><td>Pest (Feature + Unit) — 86+ tests</td></tr>
+    <tr><td>Locale</td><td>fr (validation en français via <code>lang/fr/validation.php</code>)</td></tr>
+    <tr><td>Site read-only</td><td>Variable <code>SITE_READ_ONLY</code> dans <code>.env</code></td></tr>
   </table>
 </section>
 
-<section>
-  <h2>4. Modèles &amp; relations</h2>
-  <table>
-    <tr><th>Modèle</th><th>Relations</th></tr>
-    <tr><td>User</td><td>hasMany Post ; rôle (author/admin)</td></tr>
-    <tr><td>Post</td><td>belongsTo User, Category ; belongsToMany Tag</td></tr>
-    <tr><td>Category</td><td>hasMany Post</td></tr>
-    <tr><td>Tag</td><td>belongsToMany Post</td></tr>
-  </table>
-</section>
-
-<section>
-  <h2>5. Structure du projet</h2>
+<section id="structure">
+  <h2>4. Structure du projet</h2>
   <pre>app/
-  Http/Controllers/        # Page, Post, Category, Tag, Auth, Api
-  Http/Requests/           # Form Requests (web + Api)
-  Http/Resources/          # PostResource, CategoryResource
-  Http/Middleware/         # EnsureSiteIsWritable, EnsureUserIsAdmin
-  Models/                  # User, Post, Category, Tag
-  Policies/                # PostPolicy
+  Http/
+    Controllers/
+      PageController.php          # home, about, time
+      PostController.php          # CRUD posts + mine, archive, byCategory, byTag, togglePublication
+      CategoryController.php      # admin CRUD catégories
+      TagController.php           # admin CRUD tags
+      Auth/
+        LoginController.php
+        RegisterController.php
+      Api/
+        PostController.php        # API CRUD
+    Requests/
+      StorePostRequest.php, UpdatePostRequest.php
+      StoreCategoryRequest.php, UpdateCategoryRequest.php
+      StoreTagRequest.php, UpdateTagRequest.php
+      LoginRequest.php, RegisterRequest.php
+      Api/IndexPostRequest.php
+    Resources/
+      PostResource.php, CategoryResource.php
+    Middleware/
+      EnsureSiteIsWritable.php
+      EnsureUserIsAdmin.php
+  Models/
+    User.php, Post.php, Category.php, Tag.php
+  Policies/
+    PostPolicy.php
 config/site.php
 database/
-  migrations/              # users, posts, categories, tags, post_tag, personal_access_tokens
-  factories/               # User, Post, Category, Tag
-  seeders/                 # DatabaseSeeder, CategorySeeder, TagSeeder
+  migrations/                   # users, posts, categories, tags, post_tag, personal_access_tokens
+  factories/                    # User, Post, Category, Tag
+  seeders/                      # DatabaseSeeder, CategorySeeder, TagSeeder
 resources/views/
-  components/              # layout, navbar, post-card, post-form, ...
-  posts/, admin/, auth/, errors/
+  components/                   # layout, navbar, post-card, post-form, alert, page-header, nav-link
+  posts/                        # index, show, create, edit
+  admin/categories/, admin/tags/
+  auth/                         # login, register
+  errors/                       # 404, 503, article-introuvable, layout, minimal
 routes/
-  web.php                  # routes web
-  api.php                  # routes API
-tests/Feature/             # Pest tests</pre>
+  web.php, api.php, console.php
+tests/Feature/                  # Pest tests</pre>
 </section>
 
-<section>
-  <h2>6. Routes principales (web)</h2>
+<section id="models">
+  <h2>5. Modèles &amp; relations Eloquent</h2>
   <table>
-    <tr><th>Méthode</th><th>URI</th><th>Nom</th></tr>
-    <tr><td>GET</td><td>/</td><td>home</td></tr>
-    <tr><td>GET</td><td>/posts</td><td>posts.index</td></tr>
-    <tr><td>GET</td><td>/posts/{post}</td><td>posts.show</td></tr>
-    <tr><td>GET</td><td>/posts/categorie/{slug}</td><td>posts.category</td></tr>
-    <tr><td>GET</td><td>/posts/tag/{slug}</td><td>posts.tag</td></tr>
-    <tr><td>GET/POST</td><td>/inscription, /connexion</td><td>register, login</td></tr>
-    <tr><td>GET</td><td>/mes-articles</td><td>posts.mine</td></tr>
-    <tr><td>—</td><td>/admin/categories, /admin/tags</td><td>admin.* (admin only)</td></tr>
+    <tr><th>Modèle</th><th>Relations</th><th>Champs clés</th></tr>
+    <tr><td>User</td><td>hasMany Post</td><td>name, email, password, role (author/admin)</td></tr>
+    <tr><td>Post</td><td>belongsTo User, Category ; belongsToMany Tag</td><td>title, slug, excerpt, body, published_at, user_id, category_id</td></tr>
+    <tr><td>Category</td><td>hasMany Post</td><td>name, slug</td></tr>
+    <tr><td>Tag</td><td>belongsToMany Post</td><td>name, slug</td></tr>
+  </table>
+  <h3>Scopes &amp; helpers</h3>
+  <ul>
+    <li><code>Post::visibleTo($user)</code> — filtre les brouillons selon l'auteur/admin.</li>
+    <li><code>User::isAdmin()</code> — vérifie le rôle admin.</li>
+    <li><code>Model::preventLazyLoading()</code> en développement.</li>
+  </ul>
+</section>
+
+<section id="crud">
+  <h2>6. CRUD détaillé</h2>
+
+  <h3>6.1 Articles (Posts)</h3>
+  <table>
+    <tr><th>Action</th><th>Méthode / Route</th><th>Contrôleur</th><th>Détail</th></tr>
+    <tr><td>Lister</td><td>GET /posts</td><td>PostController@index</td><td>Pagination, filtres catégorie/tag</td></tr>
+    <tr><td>Voir</td><td>GET /posts/{post}</td><td>PostController@show</td><td>Gate view (brouillon visible auteur/admin)</td></tr>
+    <tr><td>Créer (form)</td><td>GET /posts/create</td><td>PostController@create</td><td>Gate create</td></tr>
+    <tr><td>Enregistrer</td><td>POST /posts</td><td>PostController@store</td><td>StorePostRequest, slug auto, auteur = auth()</td></tr>
+    <tr><td>Modifier (form)</td><td>GET /posts/{post}/edit</td><td>PostController@edit</td><td>Gate update</td></tr>
+    <tr><td>Mettre à jour</td><td>PUT/PATCH /posts/{post}</td><td>PostController@update</td><td>UpdatePostRequest, slug conservé</td></tr>
+    <tr><td>Supprimer</td><td>DELETE /posts/{post}</td><td>PostController@destroy</td><td>Gate delete</td></tr>
+    <tr><td>Publier/dépublier</td><td>PATCH /posts/{post}/publication</td><td>PostController@togglePublication</td><td>author/admin</td></tr>
+    <tr><td>Mes articles</td><td>GET /mes-articles</td><td>PostController@mine</td><td>auth</td></tr>
+    <tr><td>Archive</td><td>GET /posts/archive/{year}</td><td>PostController@archive</td><td>par année</td></tr>
+    <tr><td>Par catégorie</td><td>GET /posts/categorie/{slug}</td><td>PostController@byCategory</td><td></td></tr>
+    <tr><td>Par tag</td><td>GET /posts/tag/{slug}</td><td>PostController@byTag</td><td></td></tr>
+  </table>
+
+  <h3>6.2 Catégories (admin)</h3>
+  <table>
+    <tr><th>Action</th><th>Route</th><th>Détail</th></tr>
+    <tr><td>Lister</td><td>GET /admin/categories</td><td>Gate manage-categories, withCount posts</td></tr>
+    <tr><td>Créer</td><td>GET/POST /admin/categories</td><td>StoreCategoryRequest</td></tr>
+    <tr><td>Modifier</td><td>GET/PUT /admin/categories/{category}</td><td>UpdateCategoryRequest, slug conservé</td></tr>
+    <tr><td>Supprimer</td><td>DELETE /admin/categories/{category}</td><td>les articles sont conservés</td></tr>
+  </table>
+
+  <h3>6.3 Tags (admin)</h3>
+  <table>
+    <tr><th>Action</th><th>Route</th><th>Détail</th></tr>
+    <tr><td>Lister</td><td>GET /admin/tags</td><td>Gate manage-categories (ou manage-tags)</td></tr>
+    <tr><td>Créer / Modifier / Supprimer</td><td>/admin/tags</td><td>StoreTagRequest / UpdateTagRequest</td></tr>
   </table>
 </section>
 
-<section>
-  <h2>7. API REST</h2>
-  <p>Préfixe <code>/api</code>. Lecture publique, écriture protégée par Sanctum.</p>
+<section id="auth">
+  <h2>7. Authentification &amp; autorisations</h2>
+  <h3>7.1 Authentification manuelle</h3>
+  <ul>
+    <li><code>RegisterController</code> : création de compte (rôle author par défaut), connexion automatique.</li>
+    <li><code>LoginController</code> : connexion par email/mot de passe, déconnexion.</li>
+    <li><code>LoginRequest</code>, <code>RegisterRequest</code> : validation.</li>
+    <li>Vues : <code>auth/login.blade.php</code>, <code>auth/register.blade.php</code>.</li>
+    <li>Routes groupées : <code>guest</code> (inscription/connexion), <code>auth</code> (déconnexion).</li>
+  </ul>
+  <h3>7.2 Rôles &amp; Gates</h3>
+  <ul>
+    <li>Colonne <code>role</code> sur <code>users</code> (author par défaut, admin).</li>
+    <li>Gate <code>manage-categories</code> : réservé aux admins.</li>
+    <li>Gate <code>manage-tags</code> : réservé aux admins.</li>
+  </ul>
+  <h3>7.3 Policy (PostPolicy)</h3>
+  <ul>
+    <li><code>view</code> : article publié OU auteur/admin.</li>
+    <li><code>create</code> : utilisateur connecté.</li>
+    <li><code>update</code> / <code>delete</code> : auteur de l'article OU admin.</li>
+  </ul>
+  <h3>7.4 Middleware</h3>
+  <ul>
+    <li><code>auth</code> : utilisateur connecté.</li>
+    <li><code>guest</code> : visiteur non connecté.</li>
+    <li><code>writable</code> (<code>EnsureSiteIsWritable</code>) : bloque les écritures si <code>SITE_READ_ONLY=true</code> → 503.</li>
+    <li><code>admin</code> (<code>EnsureUserIsAdmin</code>) : réserve <code>/admin</code> aux admins.</li>
+  </ul>
+</section>
+
+<section id="api">
+  <h2>8. API REST</h2>
+  <p>Préfixe <code>/api</code>. Lecture publique, écriture protégée par Sanctum (jetons).</p>
+  <h3>8.1 Endpoints</h3>
   <table>
-    <tr><th>Méthode</th><th>URI</th><th>Description</th></tr>
-    <tr><td>GET</td><td>/api/posts</td><td>Liste paginée (param <code>per_page</code>)</td></tr>
-    <tr><td>GET</td><td>/api/posts/{post}</td><td>Détail d'un article</td></tr>
-    <tr><td>POST</td><td>/api/posts</td><td>Créer (authentifié)</td></tr>
-    <tr><td>PUT/PATCH</td><td>/api/posts/{post}</td><td>Modifier (auteur/admin)</td></tr>
-    <tr><td>DELETE</td><td>/api/posts/{post}</td><td>Supprimer</td></tr>
-    <tr><td>POST</td><td>/api/login, /api/register</td><td>Jetons Sanctum</td></tr>
+    <tr><th>Méthode</th><th>URI</th><th>Description</th><th>Auth</th></tr>
+    <tr><td>GET</td><td>/api/posts</td><td>Liste paginée (param <code>per_page</code>, max 50)</td><td>Non</td></tr>
+    <tr><td>GET</td><td>/api/posts/{post}</td><td>Détail d'un article</td><td>Non (403 si brouillon)</td></tr>
+    <tr><td>POST</td><td>/api/posts</td><td>Créer un article</td><td>Sanctum</td></tr>
+    <tr><td>PUT/PATCH</td><td>/api/posts/{post}</td><td>Modifier</td><td>Sanctum + auteur/admin</td></tr>
+    <tr><td>DELETE</td><td>/api/posts/{post}</td><td>Supprimer</td><td>Sanctum + auteur/admin</td></tr>
+    <tr><td>POST</td><td>/api/register</td><td>Inscription → jeton</td><td>Non</td></tr>
+    <tr><td>POST</td><td>/api/login</td><td>Connexion → jeton</td><td>Non</td></tr>
+    <tr><td>POST</td><td>/api/logout</td><td>Révocation du jeton</td><td>Sanctum</td></tr>
+    <tr><td>GET</td><td>/api/user</td><td>Utilisateur connecté</td><td>Sanctum</td></tr>
+  </table>
+  <h3>8.2 Resources</h3>
+  <ul>
+    <li><code>PostResource</code> : id, title, slug, excerpt, body, published_at, author, category, tags.</li>
+    <li><code>CategoryResource</code> : id, name, slug.</li>
+  </ul>
+  <h3>8.3 Codes HTTP</h3>
+  <p>200 (OK), 201 (Created), 204 (No Content), 403 (Forbidden), 404 (Not Found), 422 (Validation), 401 (Unauthenticated).</p>
+</section>
+
+<section id="validation">
+  <h2>9. Validation &amp; Form Requests</h2>
+  <ul>
+    <li><code>StorePostRequest</code> / <code>UpdatePostRequest</code> : title, slug unique, excerpt, body, published_at, category_id, tags.</li>
+    <li><code>StoreCategoryRequest</code> / <code>UpdateCategoryRequest</code> : name, slug.</li>
+    <li><code>StoreTagRequest</code> / <code>UpdateTagRequest</code> : name, slug.</li>
+    <li><code>LoginRequest</code> / <code>RegisterRequest</code> : email, password.</li>
+    <li><code>Api/IndexPostRequest</code> : per_page (1–50).</li>
+  </ul>
+  <p>Messages de validation en français (<code>lang/fr/validation.php</code>, <code>APP_LOCALE=fr</code>).</p>
+</section>
+
+<section id="middleware">
+  <h2>10. Middleware</h2>
+  <table>
+    <tr><th>Alias</th><th>Classe</th><th>Rôle</th></tr>
+    <tr><td>auth</td><td>Laravel</td><td>Utilisateur connecté</td></tr>
+    <tr><td>guest</td><td>Laravel</td><td>Visiteur non connecté</td></tr>
+    <tr><td>writable</td><td>EnsureSiteIsWritable</td><td>Bloque les écritures si SITE_READ_ONLY=true (503)</td></tr>
+    <tr><td>admin</td><td>EnsureUserIsAdmin</td><td>Réserve /admin aux admins</td></tr>
   </table>
 </section>
 
-<section>
-  <h2>8. Lancer le projet</h2>
+<section id="errors">
+  <h2>11. Pages d'erreur</h2>
+  <ul>
+    <li><code>errors/404.blade.php</code> — ressource introuvable.</li>
+    <li><code>errors/503.blade.php</code> — site en lecture seule.</li>
+    <li><code>errors/article-introuvable.blade.php</code> — article non trouvé.</li>
+    <li><code>errors/layout.blade.php</code>, <code>errors/minimal.blade.php</code> — layouts d'erreur.</li>
+    <li>Réponses JSON pour les routes <code>/api/*</code> (via <code>shouldRenderJsonWhen</code>).</li>
+  </ul>
+</section>
+
+<section id="tests">
+  <h2>12. Tests (Pest)</h2>
+  <table>
+    <tr><th>Fichier</th><th>Couverture</th></tr>
+    <tr><td>PostWriteTest</td><td>CRUD articles, validation, publication</td></tr>
+    <tr><td>PostPagesTest</td><td>Pages publiques, navigation</td></tr>
+    <tr><td>PostRelationsTest</td><td>Relations, factories, seeders</td></tr>
+    <tr><td>PostTaxonomyTest</td><td>Catégories, tags, eager loading</td></tr>
+    <tr><td>PostFeedbackTest</td><td>Messages flash, feedback</td></tr>
+    <tr><td>CategoryAdminTest</td><td>Admin catégories, validation FR, 503 read-only</td></tr>
+    <tr><td>ErrorPagesTest</td><td>Pages 404/503</td></tr>
+    <tr><td>AuthTest</td><td>Inscription, connexion, déconnexion</td></tr>
+    <tr><td>AuthorizationTest</td><td>Gates, policies, rôles</td></tr>
+    <tr><td>AdminAccessTest</td><td>Accès admin</td></tr>
+    <tr><td>PostVisibilityTest</td><td>Visibilité des brouillons</td></tr>
+    <tr><td>Api tests</td><td>CRUD API, Sanctum, pagination, 403/404/422</td></tr>
+  </table>
+  <p>Lancer : <code>php artisan test</code> (86+ tests).</p>
+</section>
+
+<section id="run">
+  <h2>13. Lancer le projet</h2>
   <pre>cd C:\Users\benmo\Documents\laravel\mini-cms
 php artisan serve          # http://127.0.0.1:8000
 # ou tout-en-un :
@@ -170,15 +343,41 @@ php artisan migrate:fresh --seed
 # tests :
 php artisan test</pre>
   <p><strong>Compte admin seedé :</strong> <code>test@example.com</code> / <code>password</code></p>
+  <p><strong>Site read-only :</strong> mettre <code>SITE_READ_ONLY=true</code> dans <code>.env</code>.</p>
 </section>
 
-<section>
-  <h2>9. Historique Git</h2>
-  <p>Branche <code>mini-cms</code> : un commit par session (02 → 15), plus le commit initial (session 01).
-  Branche <code>main</code> : commit unique <code>lab-06</code>. Tags : <code>lab-01b</code>, <code>lab-02</code>, <code>lab-03</code>, <code>lab-06</code>, <code>lab-07</code>, <code>lab-07b</code>, <code>lab-08</code>.</p>
+<section id="routes">
+  <h2>14. Routes web</h2>
+  <table>
+    <tr><th>Méthode</th><th>URI</th><th>Nom</th><th>Accès</th></tr>
+    <tr><td>GET</td><td>/</td><td>home</td><td>public</td></tr>
+    <tr><td>GET</td><td>/a-propos</td><td>about</td><td>public</td></tr>
+    <tr><td>GET</td><td>/heure</td><td>time</td><td>public</td></tr>
+    <tr><td>GET</td><td>/posts</td><td>posts.index</td><td>public</td></tr>
+    <tr><td>GET</td><td>/posts/{post}</td><td>posts.show</td><td>public (gate view)</td></tr>
+    <tr><td>GET</td><td>/posts/archive/{year}</td><td>posts.archive</td><td>public</td></tr>
+    <tr><td>GET</td><td>/posts/categorie/{slug}</td><td>posts.category</td><td>public</td></tr>
+    <tr><td>GET</td><td>/posts/tag/{slug}</td><td>posts.tag</td><td>public</td></tr>
+    <tr><td>GET/POST</td><td>/inscription</td><td>register</td><td>guest</td></tr>
+    <tr><td>GET/POST</td><td>/connexion</td><td>login</td><td>guest</td></tr>
+    <tr><td>POST</td><td>/deconnexion</td><td>logout</td><td>auth</td></tr>
+    <tr><td>GET</td><td>/mes-articles</td><td>posts.mine</td><td>auth</td></tr>
+    <tr><td>GET/POST</td><td>/posts/create</td><td>posts.create/store</td><td>auth + writable</td></tr>
+    <tr><td>GET/PUT/DELETE</td><td>/posts/{post}</td><td>posts.edit/update/destroy</td><td>auth + policy + writable</td></tr>
+    <tr><td>PATCH</td><td>/posts/{post}/publication</td><td>posts.publication</td><td>auth + writable</td></tr>
+    <tr><td>—</td><td>/admin/categories, /admin/tags</td><td>admin.*</td><td>auth + admin + writable</td></tr>
+  </table>
+</section>
+
+<section id="git">
+  <h2>15. Historique Git</h2>
+  <p>Branche <code>mini-cms</code> : un commit par session (02 → 15), plus le commit initial (session 01).</p>
+  <p>Branche <code>main</code> : commit unique <code>lab-06</code>.</p>
+  <p>Tags : <code>lab-01b</code>, <code>lab-02</code>, <code>lab-03</code>, <code>lab-06</code>, <code>lab-07</code>, <code>lab-07b</code>, <code>lab-08</code>.</p>
+  <p>Sessions : 01 (installation), 02 (Git/GitHub), 03 (routage/layouts), 04 (pages statiques/composants), 05 (migrations/CRUD), 06 (CRUD/tests), 07 (relations/factories/seeders), 08 (catégories/tags/eager loading), 09 (form requests/flash/middleware/exceptions), 10 (validation/robustesse), 11 (auth/gates/policies), 12 (autorisations/Livewire), 13 (API REST), 14 (API complète/tests), 15 (Sanctum).</p>
 </section>
 
 </div>
-<footer>Mini-CMS — documentation générée automatiquement. ISET Sidi Bouzid — Atelier Framework Côté Serveur.</footer>
+<footer>Mini-CMS — documentation complète. ISET Sidi Bouzid — Atelier Framework Côté Serveur — groupe MDW33.</footer>
 </body>
 </html>
