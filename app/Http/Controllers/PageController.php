@@ -33,7 +33,7 @@ class PageController extends Controller
     {
         return view('a-propos', [
             'auteur' => 'Hamma',
-            'groupe' => 'MDW32',
+            'groupe' => 'MDW33',
         ]);
     }
 

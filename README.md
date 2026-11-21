@@ -2,7 +2,7 @@
 
 Projet fil rouge de l'Atelier Framework Côté Serveur (Laravel 13, PHP 8.3+), 3e année MDW, ISET Sidi Bouzid.
 
-Auteur : Hamma, groupe MDW32.
+Auteur : Hamma, groupe MDW33.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, `lab-01b`, puis un tag par session).
 
