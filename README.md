@@ -6,13 +6,13 @@ Auteur : Hamma, groupe MDW32.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, `lab-01b`, puis un tag par session).
 
-## État actuel (tag lab-06b)
+## État actuel (tag lab-08)
 
-- Middleware `admin` (`App\Http\Middleware\EnsureUserIsAdmin`) sur tout `/admin` : un auteur reçoit 403 « Réservé aux administrateurs. ».
-- Gate `manage-tags`, comme `manage-categories` : contrôleur, Form Requests et menu.
-- Brouillons protégés : `PostPolicy::view` et le scope `visibleTo` ; un brouillon n'est visible que par son auteur et les administrateurs.
-- Tests d'autorisation : `AdminAccessTest` (7 tests) et `PostVisibilityTest` (5 tests), en plus des fichiers de la session 11.
-- Comparaison écrite avec le starter kit Livewire (section ci-dessous).
+- `GET /api/categories` et `GET /api/categories/{category}`, avec le nombre d'articles publiés de chaque catégorie.
+- `GET /api/posts?category=<slug>&tag=<slug>` : filtres par catégorie et par tag, comparaison exacte, slug inconnu refusé (422).
+- `POST /api/login` renvoie un jeton Sanctum ; `POST /api/logout` le révoque.
+- `POST`, `PUT/PATCH` et `DELETE /api/posts` protégés par `auth:sanctum`, avec les mêmes Form Requests et la même `PostPolicy` que le site (401, 403 et 422 en JSON).
+- Tests Pest `ApiReadTest` et `ApiWriteTest`.
 
 ## Prérequis
 
@@ -64,6 +64,13 @@ Ouvrir ensuite http://localhost:8000 (adresse de l'application, différente de l
 | GET | `/posts/create` | `posts.create` | `PostController@create` |
 | POST | `/posts` | `posts.store` | `PostController@store` |
 | GET | `/posts/{post}` | `posts.show` | `PostController@show` |
+| GET | `/api/categories` | `api.categories.index` | `Api\CategoryController@index` |
+| GET | `/api/categories/{category}` | `api.categories.show` | `Api\CategoryController@show` |
+| POST | `/api/login` | `api.login` | `Api\AuthController@login` |
+| POST | `/api/logout` | `api.logout` | `Api\AuthController@logout` |
+| POST | `/api/posts` | `api.posts.store` | `Api\PostController@store` |
+| PUT/PATCH | `/api/posts/{post}` | `api.posts.update` | `Api\PostController@update` |
+| DELETE | `/api/posts/{post}` | `api.posts.destroy` | `Api\PostController@destroy` |
 
 ## Captures d'écran
 
@@ -98,6 +105,12 @@ Ouvrir ensuite http://localhost:8000 (adresse de l'application, différente de l
 ![Page 403 « Réservé aux administrateurs. » pour un compte auteur sur /admin/tags](screenshots/s12-admin-interdit.png)
 
 ![Barre de navigation d'un compte auteur, sans les liens Catégories et Tags](screenshots/s12-menu-auteur.png)
+
+### Session 14
+
+![Postman : POST /api/posts avec un jeton Bearer, onglet Body, réponse 201 Created](screenshots/s14-postman-201.png)
+
+![Postman : PUT sur l'article d'un autre auteur, réponse 403](screenshots/s14-postman-403.png)
 ## Comparaison avec le starter kit Livewire
 
 | Critère | Mini-CMS (authentification manuelle) | Starter kit Livewire |
