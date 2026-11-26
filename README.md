@@ -1,136 +1,119 @@
 # Mini-CMS
 
-Projet fil rouge de l'Atelier Framework Côté Serveur (Laravel 13, PHP 8.3+), 3e année MDW, ISET Sidi Bouzid.
+Projet fil rouge de l'Atelier Framework Côté Serveur (Laravel 13, PHP 8.3+), 3e année MDW, groupe MDW33, ISET Sidi Bouzid.
 
-Auteur : Hamma, groupe MDW33.
+Auteur : Hamma.
 
-Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, `lab-01b`, puis un tag par session).
+Mini-CMS est une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git.
 
-## État actuel (tag lab-08)
+## État actuel
 
-- `GET /api/categories` et `GET /api/categories/{category}`, avec le nombre d'articles publiés de chaque catégorie.
-- `GET /api/posts?category=<slug>&tag=<slug>` : filtres par catégorie et par tag, comparaison exacte, slug inconnu refusé (422).
-- `POST /api/login` renvoie un jeton Sanctum ; `POST /api/logout` le révoque.
-- `POST`, `PUT/PATCH` et `DELETE /api/posts` protégés par `auth:sanctum`, avec les mêmes Form Requests et la même `PostPolicy` que le site (401, 403 et 422 en JSON).
-- Tests Pest `ApiReadTest` et `ApiWriteTest`.
+- Site web complet (posts, catégories, tags, auth, autorisations).
+- API REST complète (lecture publique + CRUD protégé par Sanctum).
+- 86+ tests Pest (verts).
 
 ## Prérequis
 
-- PHP et Composer (PHP 8.3 ou plus depuis https://www.php.net/downloads, avec les extensions curl, fileinfo, mbstring, openssl, pdo_sqlite, sqlite3 et zip activées dans php.ini, et Composer depuis https://getcomposer.org).
+- PHP 8.3+ et Composer (extensions : curl, fileinfo, mbstring, openssl, pdo_sqlite, sqlite3, zip).
 - Node.js LTS et npm.
 - Git.
 
 ## Installation
-
-### Bash (Git Bash, macOS, Linux)
 
 ```bash
 git clone https://github.com/MoHamed-B-M/mini-cms.git
 cd mini-cms
 composer install
 npm install
-cp .env.example .env
+cp .env.example .env          # PowerShell : copy .env.example .env
 php artisan key:generate
-touch database/database.sqlite
-php artisan migrate
+touch database/database.sqlite  # PowerShell : New-Item database\database.sqlite -ItemType File
+php artisan migrate --seed
+npm run build
+```
+
+## Lancer le projet
+
+```bash
+php artisan serve            # http://127.0.0.1:8000
+# ou tout-en-un (app + queue + logs + Vite) :
 composer run dev
 ```
 
-### PowerShell (Windows)
+> Si la page est sans CSS, supprimer `public/hot` puis `npm run build`.
 
-```powershell
-git clone https://github.com/MoHamed-B-M/mini-cms.git
-cd mini-cms
-composer install
-npm install
-copy .env.example .env
-php artisan key:generate
-New-Item database\database.sqlite -ItemType File
-php artisan migrate
-composer run dev
-```
+## Comptes seedés
 
-Ouvrir ensuite http://localhost:8000 (adresse de l'application, différente de l'adresse de Vite sur le port 5173).
-
-## Routes disponibles
-
-| Méthode | URI | Nom | Action |
+| Rôle | Email | Mot de passe | Accès |
 |---|---|---|---|
-| GET | `/` | `home` | `PageController@home` |
-| GET | `/a-propos` | `about` | `PageController@about` |
-| GET | `/heure` | `time` | `PageController@time` |
-| GET | `/posts` | `posts.index` | `PostController@index` |
-| GET | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
-| GET | `/posts/create` | `posts.create` | `PostController@create` |
-| POST | `/posts` | `posts.store` | `PostController@store` |
-| GET | `/posts/{post}` | `posts.show` | `PostController@show` |
-| GET | `/api/categories` | `api.categories.index` | `Api\CategoryController@index` |
-| GET | `/api/categories/{category}` | `api.categories.show` | `Api\CategoryController@show` |
-| POST | `/api/login` | `api.login` | `Api\AuthController@login` |
-| POST | `/api/logout` | `api.logout` | `Api\AuthController@logout` |
-| POST | `/api/posts` | `api.posts.store` | `Api\PostController@store` |
-| PUT/PATCH | `/api/posts/{post}` | `api.posts.update` | `Api\PostController@update` |
-| DELETE | `/api/posts/{post}` | `api.posts.destroy` | `Api\PostController@destroy` |
+| Admin | `test@example.com` | `password` | `/admin/*`, gestion catégories/tags, tous les articles |
+| Author | (2 utilisateurs créés par la factory) | `password` | Ses propres articles, modification/suppression des siens |
+| Visiteur | — | — | Lecture publique, inscription |
 
-## Captures d'écran
+## Rôles et permissions
 
-### Page À propos
+- **Visiteur** : lit les articles publiés, les catégories, les tags, l'API publique.
+- **Author** : tout ce que fait le visiteur + crée/modifie/supprime **ses** articles, publie/dépublie les siens, voit "mes articles".
+- **Admin** : tout ce que fait l'author + gère les catégories et tags (`/admin/*`), modifie/supprime **tous** les articles.
 
-![Page A propos](screenshots/s02-a-propos.png)
+## CRUD — Articles (Posts)
 
-### Accueil avec le layout
-
-![Page d'accueil avec le layout](screenshots/s03-accueil.png)
-
-### Liste des articles
-
-![Liste des articles](screenshots/s03-articles.png)
-
-### Détail d'un article
-
-![Détail d'un article](screenshots/s03-article.png)
-
-### Session 04
-
-![Liste des articles](screenshots/s04-articles.png)
-
-### Session 05
-
-![Liste paginée des articles](screenshots/s05-articles.png)
-
-![Formulaire avec erreurs de validation](screenshots/s05-formulaire.png)
-
-### Session 12
-
-![Page 403 « Réservé aux administrateurs. » pour un compte auteur sur /admin/tags](screenshots/s12-admin-interdit.png)
-
-![Barre de navigation d'un compte auteur, sans les liens Catégories et Tags](screenshots/s12-menu-auteur.png)
-
-### Session 14
-
-![Postman : POST /api/posts avec un jeton Bearer, onglet Body, réponse 201 Created](screenshots/s14-postman-201.png)
-
-![Postman : PUT sur l'article d'un autre auteur, réponse 403](screenshots/s14-postman-403.png)
-## Comparaison avec le starter kit Livewire
-
-| Critère | Mini-CMS (authentification manuelle) | Starter kit Livewire |
+| Action | Méthode / URI | Accès |
 |---|---|---|
-| Routes d'authentification | 
-outes/web.php (/inscription, /connexion, /deconnexion) | enregistrées par Fortify depuis son paquet ; absentes de 
-outes/web.php |
-| Inscription | Auth\RegisterController (session 11) | pp/Actions/Fortify/CreateNewUser.php (Validator::make puis User::create) et 
-esources/views/pages/auth/register.blade.php |
-| Connexion | Auth\LoginController::store (Auth::attempt, 
-egenerate) | contrôleur de Fortify et 
-esources/views/pages/auth/login.blade.php |
-| Déconnexion | Auth\LoginController::destroy (logout, invalidate, 
-egenerateToken) | route logout de Fortify ; les mêmes trois opérations dans pp/Livewire/Actions/Logout.php |
-| Limitation des tentatives | aucune | 5 tentatives par minute par e-mail et adresse IP (pp/Providers/FortifyServiceProvider.php) |
-| Mot de passe oublié | absent | Features::resetPasswords() dans config/fortify.php |
-| Vérification de l'e-mail | absente | Features::emailVerification(), MustVerifyEmail sur User, middleware erified sur /dashboard |
-| Double authentification | absentes | Features::twoFactorAuthentication() et Features::passkeys() |
-| Rôles et autorisations | colonne 
-ole, Gates, PostPolicy, middleware dmin | aucun : à écrire soi-même |
-| Tests | AuthTest, AuthorizationTest, AdminAccessTest, PostVisibilityTest | 10 fichiers dans 	ests/Feature (Auth, Settings, Dashboard) ; écrits avec PHPUnit dans le dépôt |
+| Lister | `GET /posts` | public |
+| Voir | `GET /posts/{post}` | public (brouillon : auteur/admin) |
+| Créer (form) | `GET /posts/create` | auth |
+| Enregistrer | `POST /posts` | auth + writable |
+| Modifier (form) | `GET /posts/{post}/edit` | auth + auteur/admin + writable |
+| Mettre à jour | `PUT/PATCH /posts/{post}` | auth + auteur/admin + writable |
+| Supprimer | `DELETE /posts/{post}` | auth + auteur/admin + writable |
+| Publier/dépublier | `PATCH /posts/{post}/publication` | auth + writable |
+| Mes articles | `GET /mes-articles` | auth |
+| Archive | `GET /posts/archive/{year}` | public |
+| Par catégorie | `GET /posts/categorie/{slug}` | public |
+| Par tag | `GET /posts/tag/{slug}` | public |
 
-Ce que je garderais du kit dans un vrai projet : la limitation des tentatives, la vérification d'e-mail et la double authentification, déjà câblées, quitte à garder la gestion des rôles à écrire soi-même.
+## CRUD — Catégories & Tags (admin)
+
+| Action | URI | Accès |
+|---|---|---|
+| Lister/Créer/Modifier/Supprimer | `/admin/categories`, `/admin/tags` | auth + admin + writable |
+
+## API REST
+
+Préfixe `/api`. Lecture publique, écriture protégée par Sanctum.
+
+| Méthode | URI | Description | Auth |
+|---|---|---|---|
+| GET | `/api/posts` | Liste paginée (`per_page`, max 50) | non |
+| GET | `/api/posts/{post}` | Détail (403 si brouillon) | non |
+| POST | `/api/posts` | Créer | Sanctum |
+| PUT/PATCH | `/api/posts/{post}` | Modifier (auteur/admin) | Sanctum |
+| DELETE | `/api/posts/{post}` | Supprimer | Sanctum |
+| POST | `/api/register` | Inscription → jeton | non |
+| POST | `/api/login` | Connexion → jeton | non |
+| POST | `/api/logout` | Révocation du jeton | Sanctum |
+| GET | `/api/user` | Utilisateur connecté | Sanctum |
+
+Exemple d'utilisation du jeton :
+```bash
+curl -H "Authorization: Bearer <token>" -H "Accept: application/json" http://localhost:8000/api/posts
+```
+
+## Tester
+
+```bash
+php artisan test            # ou : composer run test
+```
+
+Couverture : CRUD articles, pages publiques, relations, taxonomie, feedback, admin catégories, erreurs, auth, autorisations, accès admin, visibilité, API (lecture/écriture/Sanctum).
+
+## Site en lecture seule
+
+Mettre `SITE_READ_ONLY=true` dans `.env` → les écritures renvoient 503.
+
+## Branches & tags
+
+- `main` : commit unique `lab-06`.
+- `mini-cms` : un commit par session (02 → 15) + commit initial.
+- Tags : `lab-01b`, `lab-02`, `lab-03`, `lab-06`, `lab-07`, `lab-07b`, `lab-08`.
