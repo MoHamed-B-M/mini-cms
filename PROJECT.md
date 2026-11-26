@@ -23,7 +23,7 @@ php artisan migrate:fresh --seed
 php artisan serve          # http://127.0.0.1:8000
 ```
 
-Admin account: `test@example.com` / `password`
+Admin account: `admin@admin.com` / `password`
 
 ## Branches
 

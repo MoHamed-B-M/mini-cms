@@ -46,7 +46,7 @@ composer run dev
 
 | Rôle | Email | Mot de passe | Accès |
 |---|---|---|---|
-| Admin | `test@example.com` | `password` | `/admin/*`, gestion catégories/tags, tous les articles |
+| Admin | `admin@admin.com` | `password` | `/admin/*`, gestion catégories/tags, tous les articles |
 | Author | (2 utilisateurs créés par la factory) | `password` | Ses propres articles, modification/suppression des siens |
 | Visiteur | — | — | Lecture publique, inscription |
 
