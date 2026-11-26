@@ -19,11 +19,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->admin()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
         ]);
 
-        User::factory(2)->create();
+        User::factory()->create([
+            'name' => 'Author One',
+            'email' => 'author1@example.com',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Author Two',
+            'email' => 'author2@example.com',
+        ]);
 
         $this->call([
             CategorySeeder::class,
