@@ -220,6 +220,14 @@ tests/Feature/                  # Pest tests</pre>
     <tr><td>Lister</td><td>GET /admin/tags</td><td>Gate manage-categories (ou manage-tags)</td></tr>
     <tr><td>Créer / Modifier / Supprimer</td><td>/admin/tags</td><td>StoreTagRequest / UpdateTagRequest</td></tr>
   </table>
+
+  <h3>6.4 Utilisateurs (admin)</h3>
+  <table>
+    <tr><th>Action</th><th>Route</th><th>Détail</th></tr>
+    <tr><td>Lister</td><td>GET /admin/users</td><td>auth + admin, pagination</td></tr>
+    <tr><td>Modifier</td><td>GET/PUT /admin/users/{user}</td><td>UpdateUserRequest (nom, email, rôle)</td></tr>
+    <tr><td>Supprimer</td><td>DELETE /admin/users/{user}</td><td>impossible de se supprimer soi-même</td></tr>
+  </table>
 </section>
 
 <section id="auth">

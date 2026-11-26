@@ -79,6 +79,14 @@ composer run dev
 |---|---|---|
 | Lister/Créer/Modifier/Supprimer | `/admin/categories`, `/admin/tags` | auth + admin + writable |
 
+## Gestion des utilisateurs (admin)
+
+| Action | URI | Accès |
+|---|---|---|
+| Lister | `GET /admin/users` | auth + admin |
+| Modifier (nom, email, rôle) | `GET/PUT /admin/users/{user}` | auth + admin |
+| Supprimer | `DELETE /admin/users/{user}` | auth + admin (impossible de se supprimer soi-même) |
+
 ## API REST
 
 Préfixe `/api`. Lecture publique, écriture protégée par Sanctum.
